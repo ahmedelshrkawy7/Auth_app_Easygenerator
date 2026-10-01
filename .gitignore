@@ -31,3 +31,9 @@ dist-ssr
 
 # typescript
 *.tsbuildinfo
+
+# keep env templates
+!.env.example
+
+# local dev database (apps/api/scripts/dev-mongo.js)
+.mongo-data
