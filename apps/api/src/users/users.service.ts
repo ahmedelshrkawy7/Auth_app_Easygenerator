@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, type OnModuleInit } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { isValidObjectId, Model } from "mongoose"
 import { User, type UserRecord } from "./schemas/user.schema"
@@ -12,8 +12,16 @@ export class EmailTakenError extends Error {
 }
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit {
   constructor(@InjectModel(User.name) private readonly users: Model<User>) {}
+
+  /**
+   * Mongoose builds indexes in the background. Wait for them so the unique
+   * email index exists before the first signup, or duplicates slip through.
+   */
+  async onModuleInit(): Promise<void> {
+    await this.users.init()
+  }
 
   async create(input: {
     email: string
