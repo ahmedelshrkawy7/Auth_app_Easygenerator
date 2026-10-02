@@ -1,0 +1,14 @@
+{
+  "name": "e2e",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test:browser": "playwright test",
+    "test:browser:install": "playwright install --with-deps chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "mongodb-memory-server": "^11.3.0"
+  }
+}

@@ -39,3 +39,7 @@ dist-ssr
 .mongo-data
 
 .vercel
+
+# playwright
+test-results
+playwright-report
