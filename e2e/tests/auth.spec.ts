@@ -38,7 +38,7 @@ test("sign up, stay signed in after reload, log out, sign back in", async ({
   await expect(page).toHaveURL(/\/signin$/)
 
   await page.getByLabel("Email").fill(email)
-  await page.getByLabel("Password").fill(PASSWORD)
+  await page.getByLabel("Password", { exact: true }).fill(PASSWORD)
   await page.getByRole("button", { name: "Sign in" }).click()
   await expect(welcome).toBeVisible()
 })
@@ -50,7 +50,7 @@ test("shows a generic error for a wrong password", async ({ page }) => {
   await expect(page).toHaveURL(/\/signin$/)
 
   await page.getByLabel("Email").fill(email)
-  await page.getByLabel("Password").fill("Wrong-pass1")
+  await page.getByLabel("Password", { exact: true }).fill("Wrong-pass1")
   await page.getByRole("button", { name: "Sign in" }).click()
 
   await expect(page.getByText("Invalid credentials")).toBeVisible()

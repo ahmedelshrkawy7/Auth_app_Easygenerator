@@ -9,7 +9,7 @@ export function SignUpPage() {
       description="Enter your details to get started."
       footer={
         <p>
-          Already have an account?{" "}
+          Already have an account?
           <Link
             to="/signin"
             className="text-foreground underline-offset-4 hover:underline"

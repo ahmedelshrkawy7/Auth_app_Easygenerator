@@ -30,7 +30,7 @@ export function PasswordChecklist({
             )}
           >
             <Icon className="size-3.5" aria-hidden />
-            <span>{rule.label}</span>
+            <span className="text-xs">{rule.label}</span>
             <span className="sr-only">{met ? "(met)" : "(not met)"}</span>
           </li>
         )

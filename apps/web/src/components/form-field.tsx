@@ -1,6 +1,7 @@
 import type { ComponentProps, ReactNode } from "react"
 import { Field, FieldError, FieldLabel } from "@workspace/ui/components/field"
 import { Input } from "@workspace/ui/components/input"
+import { PasswordInput } from "./password-input"
 
 type FormFieldProps = ComponentProps<"input"> & {
   id: string
@@ -23,16 +24,22 @@ export function FormField({
   const errorId = `${id}-error`
   const describedBy =
     [hintId, error ? errorId : undefined].filter(Boolean).join(" ") || undefined
+  const { type, ...rest } = inputProps
+  const fieldProps = {
+    id,
+    "aria-invalid": Boolean(error),
+    "aria-describedby": describedBy,
+    ...rest,
+  }
 
   return (
     <Field data-invalid={Boolean(error)}>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
-      <Input
-        id={id}
-        aria-invalid={Boolean(error)}
-        aria-describedby={describedBy}
-        {...inputProps}
-      />
+      {type === "password" ? (
+        <PasswordInput {...fieldProps} />
+      ) : (
+        <Input type={type} {...fieldProps} />
+      )}
       {hint}
       <FieldError id={errorId}>{error}</FieldError>
     </Field>

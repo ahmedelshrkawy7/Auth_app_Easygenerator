@@ -17,6 +17,22 @@ describe("SignInForm", () => {
     expect(screen.getByText("Password is required")).toBeInTheDocument()
   })
 
+  it("toggles password visibility with the eye button", async () => {
+    const { user } = renderWithProviders(<SignInForm />)
+    const password = screen.getByLabelText("Password")
+    const toggle = screen.getByRole("button", { name: "Show password" })
+
+    expect(password).toHaveAttribute("type", "password")
+    expect(toggle).toHaveAttribute("aria-pressed", "false")
+
+    await user.click(toggle)
+    expect(password).toHaveAttribute("type", "text")
+    expect(toggle).toHaveAttribute("aria-pressed", "true")
+
+    await user.click(toggle)
+    expect(password).toHaveAttribute("type", "password")
+  })
+
   it("submits credentials and caches the user", async () => {
     let body: unknown
     server.use(
